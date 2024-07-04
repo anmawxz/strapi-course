@@ -1,5 +1,17 @@
 # 🚀 Getting started with Strapi
 
+## ⚙️ Environment Configs
+I added this first topic in purpose to set a virtual machine capable to run this course's project.
+
+
+Requirements:
+- Install WSL
+- Node.js >=18.0.0 <=20.x.x
+- Start the project with "npx run develop"
+
+
+## Here starts the Strapi default guide:
+
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
 ### `develop`
