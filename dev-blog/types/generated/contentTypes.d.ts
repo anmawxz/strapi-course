@@ -810,10 +810,9 @@ export interface ApiPostPost extends Schema.CollectionType {
     content: Attribute.Blocks & Attribute.Required;
     slug: Attribute.UID<'api::post.post', 'title'> & Attribute.Required;
     cover: Attribute.Media<'images', true>;
-    seoTitle: Attribute.String;
-    seoDescription: Attribute.Text;
     authors: Attribute.Relation<'api::post.post', 'oneToMany', 'admin::user'>;
     tags: Attribute.Relation<'api::post.post', 'oneToMany', 'api::tag.tag'>;
+    seo: Attribute.Component<'seo.seo-information'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
