@@ -842,6 +842,7 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     hero: Attribute.Component<'layout.hero'>;
     servicesPreview: Attribute.Component<'layout.services-preview'>;
     featuredCourse: Attribute.Component<'layout.featured-course'>;
+    postsSelection: Attribute.Component<'blog.posts-selection'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

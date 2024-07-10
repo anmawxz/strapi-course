@@ -1,5 +1,21 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface BlogPostsSelection extends Schema.Component {
+  collectionName: 'components_blog_posts_selections';
+  info: {
+    displayName: 'postsSelection';
+    icon: 'bulletList';
+  };
+  attributes: {
+    heading: Attribute.String;
+    featuredPosts: Attribute.Relation<
+      'blog.posts-selection',
+      'oneToMany',
+      'api::post.post'
+    >;
+  };
+}
+
 export interface LayoutFeaturedCourse extends Schema.Component {
   collectionName: 'components_layout_featured_courses';
   info: {
@@ -73,6 +89,7 @@ export interface SeoSeoInformation extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'blog.posts-selection': BlogPostsSelection;
       'layout.featured-course': LayoutFeaturedCourse;
       'layout.hero': LayoutHero;
       'layout.link': LayoutLink;
