@@ -4,10 +4,12 @@
 I added this first topic in purpose to set a virtual machine capable to run this course's project.
 
 
-Requirements:
+Guide:
 - Install WSL
-- Node.js >=18.0.0 <=20.x.x
+- Node.js >=18.x.x <=20.x.x
+- Go to the subfolder
 - Start the project with "npx run develop"
+
 
 
 ## Here starts the Strapi default guide:
