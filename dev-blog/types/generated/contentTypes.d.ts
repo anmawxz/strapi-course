@@ -788,6 +788,41 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiCompanyInfiCompanyInfi extends Schema.SingleType {
+  collectionName: 'company_infis';
+  info: {
+    singularName: 'company-infi';
+    pluralName: 'company-infis';
+    displayName: 'CompanyInfo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    logo: Attribute.Media<'images'>;
+    socialLinks: Attribute.Component<'config.social-link', true>;
+    companyEmail: Attribute.Email & Attribute.Required;
+    companyName: Attribute.String & Attribute.Required;
+    vat: Attribute.String;
+    companyAddress: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::company-infi.company-infi',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::company-infi.company-infi',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCourseCourse extends Schema.CollectionType {
   collectionName: 'courses';
   info: {
@@ -816,6 +851,80 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: 'Footer';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    socialLinks: Attribute.Component<'config.social-link', true>;
+    footerMenu: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'api::menu.menu'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHeaderHeader extends Schema.SingleType {
+  collectionName: 'headers';
+  info: {
+    singularName: 'header';
+    pluralName: 'headers';
+    displayName: 'Header';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    shoowLogo: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    menu: Attribute.Relation<
+      'api::header.header',
+      'oneToOne',
+      'api::menu.menu'
+    >;
+    socialLinks: Attribute.Component<'config.social-link', true>;
+    showProfileLink: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::header.header',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::header.header',
       'oneToOne',
       'admin::user'
     > &
@@ -860,6 +969,29 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMenuMenu extends Schema.CollectionType {
+  collectionName: 'menus';
+  info: {
+    singularName: 'menu';
+    pluralName: 'menus';
+    displayName: 'Menu';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    menuItems: Attribute.Component<'layout.link', true>;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::menu.menu', 'name'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -973,8 +1105,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::company-infi.company-infi': ApiCompanyInfiCompanyInfi;
       'api::course.course': ApiCourseCourse;
+      'api::footer.footer': ApiFooterFooter;
+      'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::menu.menu': ApiMenuMenu;
       'api::post.post': ApiPostPost;
       'api::service.service': ApiServiceService;
       'api::tag.tag': ApiTagTag;

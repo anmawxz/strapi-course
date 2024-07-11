@@ -16,6 +16,21 @@ export interface BlogPostsSelection extends Schema.Component {
   };
 }
 
+export interface ConfigSocialLink extends Schema.Component {
+  collectionName: 'components_config_social_links';
+  info: {
+    displayName: 'socialLink';
+    icon: 'arrowRight';
+  };
+  attributes: {
+    socialMedia: Attribute.Enumeration<
+      ['github', 'youtube', 'twitter', 'facebook']
+    > &
+      Attribute.Required;
+    link: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface LayoutFeaturedCourse extends Schema.Component {
   collectionName: 'components_layout_featured_courses';
   info: {
@@ -119,6 +134,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'blog.posts-selection': BlogPostsSelection;
+      'config.social-link': ConfigSocialLink;
       'layout.featured-course': LayoutFeaturedCourse;
       'layout.hero': LayoutHero;
       'layout.link': LayoutLink;
