@@ -843,6 +843,9 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     servicesPreview: Attribute.Component<'layout.services-preview'>;
     featuredCourse: Attribute.Component<'layout.featured-course'>;
     postsSelection: Attribute.Component<'blog.posts-selection'>;
+    dynamicSection: Attribute.DynamicZone<
+      ['layout.newsletter-form', 'layout.mission']
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

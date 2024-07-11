@@ -59,6 +59,35 @@ export interface LayoutLink extends Schema.Component {
   };
 }
 
+export interface LayoutMission extends Schema.Component {
+  collectionName: 'components_layout_missions';
+  info: {
+    displayName: 'mission';
+    icon: 'bulletList';
+  };
+  attributes: {
+    heading: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'Our Mission'>;
+    content: Attribute.Text & Attribute.Required;
+    showLogo: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+  };
+}
+
+export interface LayoutNewsletterForm extends Schema.Component {
+  collectionName: 'components_layout_newsletter_forms';
+  info: {
+    displayName: 'newsletterForm';
+    icon: 'envelop';
+  };
+  attributes: {
+    heading: Attribute.String & Attribute.Required;
+    subHeading: Attribute.Text;
+  };
+}
+
 export interface LayoutServicesPreview extends Schema.Component {
   collectionName: 'components_layout_services_previews';
   info: {
@@ -93,6 +122,8 @@ declare module '@strapi/types' {
       'layout.featured-course': LayoutFeaturedCourse;
       'layout.hero': LayoutHero;
       'layout.link': LayoutLink;
+      'layout.mission': LayoutMission;
+      'layout.newsletter-form': LayoutNewsletterForm;
       'layout.services-preview': LayoutServicesPreview;
       'seo.seo-information': SeoSeoInformation;
     }
