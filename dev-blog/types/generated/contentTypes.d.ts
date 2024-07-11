@@ -788,6 +788,46 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiBlogPageBlogPage extends Schema.SingleType {
+  collectionName: 'blog_pages';
+  info: {
+    singularName: 'blog-page';
+    pluralName: 'blog-pages';
+    displayName: 'BlogPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'Our Blog'>;
+    slug: Attribute.UID<'api::blog-page.blog-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    excludedTags: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCompanyInfiCompanyInfi extends Schema.SingleType {
   collectionName: 'company_infis';
   info: {
@@ -851,6 +891,46 @@ export interface ApiCourseCourse extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCoursesPageCoursesPage extends Schema.SingleType {
+  collectionName: 'courses_pages';
+  info: {
+    singularName: 'courses-page';
+    pluralName: 'courses-pages';
+    displayName: 'CoursesPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'Our Courses'>;
+    slug: Attribute.UID<'api::courses-page.courses-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    excludedCourses: Attribute.Relation<
+      'api::courses-page.courses-page',
+      'oneToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::courses-page.courses-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::courses-page.courses-page',
       'oneToOne',
       'admin::user'
     > &
@@ -955,6 +1035,7 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     dynamicSection: Attribute.DynamicZone<
       ['layout.newsletter-form', 'layout.mission']
     >;
+    seo: Attribute.Component<'seo.seo-information'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1031,6 +1112,36 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
 }
 
+export interface ApiSeoConfigSeoConfig extends Schema.SingleType {
+  collectionName: 'seo_configs';
+  info: {
+    singularName: 'seo-config';
+    pluralName: 'seo-configs';
+    displayName: 'SeoConfig';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    defaultSeo: Attribute.Component<'seo.seo-information'>;
+    seoImage: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::seo-config.seo-config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::seo-config.seo-config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiServiceService extends Schema.CollectionType {
   collectionName: 'services';
   info: {
@@ -1057,6 +1168,39 @@ export interface ApiServiceService extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStaticPageStaticPage extends Schema.CollectionType {
+  collectionName: 'static_pages';
+  info: {
+    singularName: 'static-page';
+    pluralName: 'static-pages';
+    displayName: 'StaticPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::static-page.static-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::static-page.static-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::static-page.static-page',
       'oneToOne',
       'admin::user'
     > &
@@ -1105,14 +1249,18 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::blog-page.blog-page': ApiBlogPageBlogPage;
       'api::company-infi.company-infi': ApiCompanyInfiCompanyInfi;
       'api::course.course': ApiCourseCourse;
+      'api::courses-page.courses-page': ApiCoursesPageCoursesPage;
       'api::footer.footer': ApiFooterFooter;
       'api::header.header': ApiHeaderHeader;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::menu.menu': ApiMenuMenu;
       'api::post.post': ApiPostPost;
+      'api::seo-config.seo-config': ApiSeoConfigSeoConfig;
       'api::service.service': ApiServiceService;
+      'api::static-page.static-page': ApiStaticPageStaticPage;
       'api::tag.tag': ApiTagTag;
     }
   }
